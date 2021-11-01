@@ -13,31 +13,51 @@ class DC_SOURCE:
                                             'path' : '/dev/dkst1101/@COM10',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
-                                            'timeout' : 2
+                                            'timeout' : 2,
+                                            'minvolt' : 0,
+                                            'maxvolt' : 15,
+                                            'minamp' : 0,
+                                            'maxamp' : 5
                                         },
                             'DPH5015_2' : {
                                             'path' : '/dev/dkst1101/@COM11',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2
+                                            'minvolt' : 0,
+                                            'maxvolt' : 15,
+                                            'minamp' : 0,
+                                            'maxamp' : 5
                                         },
                             'DPH5015_3' : {
                                             'path' : '/dev/dkst1101/@COM12',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
-                                            'timeout' : 2
+                                            'timeout' : 2,
+                                            'minvolt' : 0,
+                                            'maxvolt' : 15,
+                                            'minamp' : 0,
+                                            'maxamp' : 5
                                         },
                             'DPH5020_1' : {
                                             'path' : '/dev/dkst1101/@COM13',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
-                                            'timeout' : 2
+                                            'timeout' : 2,
+                                            'minvolt' : 0,
+                                            'maxvolt' : 15,
+                                            'minamp' : 0,
+                                            'maxamp' : 5
                                         },
                             'DPH5020_2' : {
                                             'path' : '/dev/dkst1101/@COM14',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
-                                            'timeout' : 2
+                                            'timeout' : 2,
+                                            'minvolt' : 0,
+                                            'maxvolt' : 15,
+                                            'minamp' : 0,
+                                            'maxamp' : 20
                                         }
                         }
 
@@ -47,7 +67,11 @@ class DC_SOURCE:
         self.__initialize()
 
     def set(self, voltage, amperage):
-        #TODO check limits
+        #check limits
+        if voltage < self.__config['minvolt'] or voltage > self.__config['maxvolt'] or amperage < self.__config['minamp'] or amperage > self.__config['maxamp']:
+            print('Bad value for voltage or amperage')
+            return
+
         if self.__device:
             DC_SOURCE.mutex.acquire()
 
