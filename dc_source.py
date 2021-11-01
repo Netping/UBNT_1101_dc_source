@@ -10,7 +10,7 @@ class DC_SOURCE:
     def __init__(self, channel):
         self.__channels = {
                             'DPH5015_1' : {
-                                            'path' : '/dev/dkst1101/@COM10',
+                                            'path' : '/dev/dkst1101/COM10',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2,
@@ -20,7 +20,7 @@ class DC_SOURCE:
                                             'maxamp' : 5
                                         },
                             'DPH5015_2' : {
-                                            'path' : '/dev/dkst1101/@COM11',
+                                            'path' : '/dev/dkst1101/COM11',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2
@@ -30,7 +30,7 @@ class DC_SOURCE:
                                             'maxamp' : 5
                                         },
                             'DPH5015_3' : {
-                                            'path' : '/dev/dkst1101/@COM12',
+                                            'path' : '/dev/dkst1101/COM12',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2,
@@ -40,7 +40,7 @@ class DC_SOURCE:
                                             'maxamp' : 5
                                         },
                             'DPH5020_1' : {
-                                            'path' : '/dev/dkst1101/@COM13',
+                                            'path' : '/dev/dkst1101/COM13',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2,
@@ -50,7 +50,7 @@ class DC_SOURCE:
                                             'maxamp' : 5
                                         },
                             'DPH5020_2' : {
-                                            'path' : '/dev/dkst1101/@COM14',
+                                            'path' : '/dev/dkst1101/COM14',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
                                             'timeout' : 2,
@@ -76,17 +76,17 @@ class DC_SOURCE:
             DC_SOURCE.mutex.acquire()
 
             self.__device.write_register(0, voltage * 100)
-            self.__device.write_register(1, voltage * 100)
+            self.__device.write_register(1, amperage * 100)
 
             DC_SOURCE.mutex.release()
 
     def toggle(self, state):
         value = -1
 
-        if state.uppercase() == 'ON':
+        if state.upper() == 'ON':
             value = 1
 
-        if state.uppercase() == 'OFF':
+        if state.upper() == 'OFF':
             value = 0
 
         if self.__device and value != -1:
@@ -127,9 +127,9 @@ class DC_SOURCE:
         #connect to device
         try:
             self.__device = minimalmodbus.Instrument(self.__config['path'], 1)
-            self.__device.serial.baudrate = self.__config['serial_baudrate']
-            self.__device.serial.bytesize = self.__config['serial_bytesize']
-            self.__device.serial.timeout = self.__config['serial_timeout']
+            self.__device.serial.baudrate = self.__config['baudrate']
+            self.__device.serial.bytesize = self.__config['bytesize']
+            self.__device.serial.timeout = self.__config['timeout']
             self.__device.mode = minimalmodbus.MODE_RTU
         except Exception as exception:
             print('Failed to initialize DC_SOURCE module ' + self.__config['path'])
