@@ -6,7 +6,7 @@ import time
 
 def main():
     source = DC_SOURCE('DPH5015_3')
-    source.set(7.58, 2)
+    source.set(2, 0.1)
     source.toggle('ON')
     
     time.sleep(1)
@@ -17,7 +17,7 @@ def main():
     info = source.getInfo()
 
     print("\tU-set x100: ", info[0])
-    print("\tI-set x100: ", info[1])
+    print("\tI-set x1000: ", info[1])
     print("\tU-out x100: ", info[2])
     print("\tI-out x100: ", info[3])
     print("\tP-out x100: ", info[4])

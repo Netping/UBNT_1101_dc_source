@@ -23,7 +23,7 @@ class DC_SOURCE:
                                             'path' : '/dev/dkst1101/COM11',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
-                                            'timeout' : 2
+                                            'timeout' : 2,
                                             'minvolt' : 0,
                                             'maxvolt' : 15,
                                             'minamp' : 0,
@@ -39,7 +39,7 @@ class DC_SOURCE:
                                             'minamp' : 0,
                                             'maxamp' : 5
                                         },
-                            'DPH5020_1' : {
+                            'DPH5015_4' : {
                                             'path' : '/dev/dkst1101/COM13',
                                             'baudrate' : 9600,
                                             'bytesize' : 8,
@@ -55,7 +55,7 @@ class DC_SOURCE:
                                             'bytesize' : 8,
                                             'timeout' : 2,
                                             'minvolt' : 0,
-                                            'maxvolt' : 15,
+                                            'maxvolt' : 10,
                                             'minamp' : 0,
                                             'maxamp' : 20
                                         }
@@ -76,7 +76,7 @@ class DC_SOURCE:
             DC_SOURCE.mutex.acquire()
 
             self.__device.write_register(0, voltage * 100)
-            self.__device.write_register(1, amperage * 100)
+            self.__device.write_register(1, amperage * 1000)
 
             DC_SOURCE.mutex.release()
 
